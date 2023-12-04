@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.updown.model.dao.DietDao">
+
+<!-- 식단 등록 -->
+<insert id="insertDiet" parameterType="Diet">
+	INSERT INTO diet (category, food, calorie, reg_date, img, org_img, user_id)
+	VALUES(#{category}, #{food}, #{calorie}, date_format(now(), '%Y-%m-%d'), #{img}, #{orgImg}, #{userId});
+</insert>
+
+<!-- 식단 수정 -->
+<update id="updateDiet" parameterType="Diet">
+	UPDATE diet
+	SET category=#{category}, food=#{food}, calorie=#{calorie}, img=#{img}, org_img=#{orgImg}
+	WHERE no=#{no};
+</update>
+
+<!-- 식단 삭제 -->
+<delete id="deleteDiet" parameterType="int">
+	DELETE FROM diet
+	WHERE no=#{no};
+</delete>
+
+<!-- 하루 식단 기록 조회 -->
+<select id="selectDietOneday" parameterType="map" resultType="Diet">
+	SELECT no, category, food, calorie, reg_date as regDate, img, org_img as orgImg, user_id as userId
+	FROM diet
+	WHERE reg_date = #{regDate} AND user_id = #{loginUserId};
+</select>
+
+<!-- 하루 중 아침 식단 기록 조회 -->
+<select id="selectDietOnedayBreakfast" parameterType="map" resultType="Diet">
+	SELECT no, category, food, calorie, reg_date as regDate, img, org_img as orgImg, user_id as userId
+	FROM diet
+	WHERE reg_date = #{regDate} AND user_id = #{loginUserId} AND category = '아침';
+</select>
+
+<!-- 하루 중 점심 식단 기록 조회 -->
+<select id="selectDietOnedayLunch" parameterType="map" resultType="Diet">
+	SELECT no, category, food, calorie, reg_date as regDate, img, org_img as orgImg, user_id as userId
+	FROM diet
+	WHERE reg_date = #{regDate} AND user_id = #{loginUserId} AND category = '점심';
+</select>
+
+<!-- 하루 중 저녁 식단 기록 조회 -->
+<select id="selectDietOnedayDinner" parameterType="map" resultType="Diet">
+	SELECT no, category, food, calorie, reg_date as regDate, img, org_img as orgImg, user_id as userId
+	FROM diet
+	WHERE reg_date = #{regDate} AND user_id = #{loginUserId} AND category = '저녁';
+</select>
+
+<!-- 하루 중 간식 식단 기록 조회 -->
+<select id="selectDietOnedaySnack" parameterType="map" resultType="Diet">
+	SELECT no, category, food, calorie, reg_date as regDate, img, org_img as orgImg, user_id as userId
+	FROM diet
+	WHERE reg_date = #{regDate} AND user_id = #{loginUserId} AND category = '간식';
+</select>
+
+<!-- 식단 하나 조회 -->
+<select id="selectDietOne" parameterType="int" resultType="Diet">
+	SELECT no, category, food, calorie, reg_date as regDate, img, org_img as orgImg, user_id as userId
+	FROM diet
+	WHERE no=#{no}
+</select>
+
+</mapper>
