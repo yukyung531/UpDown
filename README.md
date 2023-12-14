@@ -1,10 +1,6 @@
-# ■ PJT-FINAL-D-KSY-KYK
-
-> 프로젝트 공통 README
+# ■ UpDown
 
 ## 프로젝트 개요
-
-### SSAFY 1학기 최종 프로젝트
 
 <br>
 
